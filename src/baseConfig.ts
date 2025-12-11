@@ -19,7 +19,7 @@ import { fixSpritemapPathPlugin } from './utils.js'
 // Get the directory containing the compiled output
 // For ESM: use import.meta.url; for CommonJS: resolve from package root
 // @ts-ignore - import.meta is ESM-only but the CJS build copies the ESM compiled output
-const __dirname = dirname(fileURLToPath(import.meta.url));
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export const baseConfig: UserConfig = {
 	plugins: [
