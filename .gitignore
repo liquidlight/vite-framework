@@ -1,0 +1,22 @@
+package-lock.json
+/node_modules
+
+# Ignore test-related files
+/coverage.data
+/coverage/
+
+# Playwright Tests
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/testbed/
+*test.ts-snapshots/
+
+# Build files
+/dist
+
+._*
+.DS_Store
+
+*.tgz

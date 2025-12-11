@@ -1,0 +1,60 @@
+{
+  "name": "@liquidlight/vite-framework",
+  "version": "0.0.0",
+  "description": "Liquid Light Vite Framework",
+  "type": "module",
+  "main": "./dist/cjs/index.js",
+  "types": "./dist/cjs/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "dist/*",
+    "dist/**/*"
+  ],
+  "homepage": "https://github.com/liquidlight/vite-framework#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liquidlight/vite-framework.git"
+  },
+  "bugs": {
+    "url": "https://github.com/liquidlight/vite-framework/issues"
+  },
+  "scripts": {
+    "clean": "rm -rf ./dist",
+    "build": "npm run clean && tsc -p ./tsconfig.esm.json && tsc -p ./tsconfig.cjs.json && cp dist/esm/baseConfig.js dist/cjs/baseConfig.js && echo '{\"type\":\"commonjs\"}' > dist/cjs/package.json",
+    "prepack": "npm run build",
+    "prepare": "npm run build",
+    "lint": "eslint ."
+  },
+  "author": "Mike Street",
+  "license": "ISC",
+  "dependencies": {
+    "@spiriit/vite-plugin-svg-spritemap": "^5.0.0",
+    "autoprefixer": "^10.4.22",
+    "cssnano": "^7.1.2",
+    "postcss-custom-media": "^11.0.6",
+    "postcss-sort-media-queries": "^5.2.0",
+    "sass": "^1.94.2",
+    "vite": "^7.2.7",
+    "vite-plugin-typo3": "^2.1.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/js": "^9.21.0",
+    "@types/node": "^22.13.4",
+    "eslint": "^9.21.0",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.24.1"
+  }
+}

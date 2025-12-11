@@ -1,0 +1,32 @@
+name: Lint
+
+on:
+  push:
+    tags:
+      - '*'
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run:
+    name: Lint & test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install Dependencies
+        run: npm i
+
+      - name: Code Linting
+        run: npm run lint
