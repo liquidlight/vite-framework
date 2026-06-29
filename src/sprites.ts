@@ -37,7 +37,7 @@ export const spritemaps = [
 					mixin: 'viteSprite',
 				},
 				callback: ({ content }) => {
-					content.replace(/(?:width|height):\s*(\d+(?:\.\d+)?)px/g, (match, p1) => {
+					content = content.replace(/(?:width|height):\s*(\d+(?:\.\d+)?)px/g, (match, p1) => {
 						const valueInEm = (p1 / BODY_SIZE).toFixed(2);
 						return `${match.split(':')[0]}: ${valueInEm}em`;
 					});
