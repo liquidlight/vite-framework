@@ -1,7 +1,8 @@
 import type { UserConfig } from './types.js';
 
 import typo3 from "vite-plugin-typo3";
-import path from "path";
+import path from "node:path";
+import { readdirSync, existsSync } from 'node:fs';
 
 // Plugins
 import VitePluginSvgSpritemap from '@spiriit/vite-plugin-svg-spritemap'
@@ -15,35 +16,40 @@ import postcssSortMediaQueries from 'postcss-sort-media-queries';
 // Functions
 import { fixSpritemapPathPlugin } from './utils.js'
 
+const sites = readdirSync('./app/sites')
+    .filter(name => existsSync(`./app/sites/${name}/Configuration/ViteEntrypoints.json`));
+
+const spritemaps = sites.flatMap(site =>
+    VitePluginSvgSpritemap(`./app/sites/${site}/Resources/Private/Sprite/*.svg`, {
+        injectSvgOnDev: true,
+    	styles: {
+			lang: 'scss',
+            filename: `./app/sites/${site}/Resources/Private/Css/src/_sprite.scss`,
+            include: ['mixin', 'variables'],
+			names: {
+				mixin: 'viteSprite',
+			},
+			callback: ({ content }) => {
+				const BODY_SIZE = 16;
+
+				content = content.replace(/(?:width|height):\s*(\d+)px/g, (match, p1) => {
+					// Divide the captured number by 16 and format to 2 decimal places
+					const valueInEm = (p1 / BODY_SIZE).toFixed(2);
+
+					// Return the new string with 'em'
+					return `${match.split(':')[0]}: ${valueInEm}em`;
+				});
+
+				return content
+			}
+        },
+    })
+);
+
 export const baseConfig: UserConfig = {
 	plugins: [
 		typo3(),
-		VitePluginSvgSpritemap('./app/sites/site_package/Resources/Private/Sprite/*.svg', {
-			injectSvgOnDev: true,
-			styles: {
-				lang: 'scss',
-				filename: './app/sites/site_package/Resources/Private/Css/src/_sprite.scss',
-				include: ['mixin', 'variables'],
-				names: {
-					mixin: 'viteSprite',
-				},
-				callback: ({ content }) => {
-					const BODY_SIZE = 16;
-
-					content = content.replace(/(?:width|height):\s*(\d+)px/g, (match, p1) => {
-						// Divide the captured number by 16 and format to 2 decimal places
-						const valueInEm = (p1 / BODY_SIZE).toFixed(2);
-
-						// Return the new string with 'em'
-						return `${match.split(':')[0]}: ${valueInEm}em`;
-					});
-
-					return content
-				}
-
-
-			},
-		}),
+		...spritemaps,
 		fixSpritemapPathPlugin(),
 	],
 	resolve: {
