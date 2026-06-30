@@ -30,6 +30,8 @@ export const baseConfig: UserConfig = {
 				loadPaths: [
 					// Allow Sass imports from Composer-installed TYPO3 site packages
 					path.resolve('vendor'),
+					// Allow sass imports accross sites
+					path.resolve('.'),
 				],
 			}
 		},
