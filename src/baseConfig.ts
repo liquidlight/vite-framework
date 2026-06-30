@@ -25,7 +25,7 @@ export const baseConfig: UserConfig = {
 	css: {
 		preprocessorOptions: {
 			scss: {
-				includePaths: [
+				loadPaths: [
 					// Allow Sass imports from Composer-installed TYPO3 site packages
 					path.resolve('vendor'),
 				],
