@@ -40,7 +40,7 @@ export const spritemaps = [
 				},
 				callback: ({ content }) => {
 					content = content.replace(/(?:width|height):\s*(\d+(?:\.\d+)?)px/g, (match, p1) => {
-						const valueInEm = (p1 / BODY_SIZE).toFixed(2);
+						const valueInEm = (Number(p1) / BODY_SIZE).toFixed(2);
 						return `${match.split(':')[0]}: ${valueInEm}em`;
 					});
 					return content;
