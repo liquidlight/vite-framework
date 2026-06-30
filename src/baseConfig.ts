@@ -18,6 +18,8 @@ export const baseConfig: UserConfig = {
 	],
 	resolve: {
 		alias: {
+			// Resolve '@' to app/sites
+			'@/': path.resolve('app/sites') + '/',
 			// Resolve TYPO3 extension imports like "liquidlight/foundation/..." into vendor dir
 			liquidlight: path.resolve('vendor/liquidlight'),
 		},
