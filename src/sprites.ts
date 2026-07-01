@@ -5,7 +5,7 @@ import { getSites } from './utils.js';
 
 const BODY_SIZE = 16;
 
-const spriteDirectory = (site: string): string => `./app/sites/${site}/Resources/Private/Sprite`;
+const spriteDirectory = (site: string): string => `./app/sites/${site}/Resources/Public/Svg`;
 
 // Only sites with SVGs get a spritemap - otherwise the plugin warns and emits an empty sprite
 function hasSprites(site: string): boolean {
