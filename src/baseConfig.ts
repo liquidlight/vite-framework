@@ -12,6 +12,11 @@ import postcssSortMediaQueries from 'postcss-sort-media-queries';
 import { spritemaps } from './sprites.js';
 
 export const baseConfig: UserConfig = {
+	build: {
+		rollupOptions: {
+			input: {},
+		},
+	},
 	plugins: [
 		typo3(),
 		...spritemaps,

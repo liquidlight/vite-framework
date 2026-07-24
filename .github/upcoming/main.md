@@ -10,6 +10,7 @@
 - Process SVGs with decimal pixels
 - Allow CSS imports accross local files
 - Replace deprecated includePaths
+- Add empty `build.rollupOptions.input` to allow mutliple `isEntry` files
 
 #### Refactor
 
