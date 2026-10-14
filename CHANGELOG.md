@@ -1,3 +1,11 @@
+# 1.1.1
+
+**14th October 2026**
+
+#### Fix
+
+- Only create a spritemap for sites with SVGs in `Resources/Private/Sprite`
+
 # 1.1.0
 
 **23rd September 2026**
