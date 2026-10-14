@@ -1,8 +1,18 @@
+import { existsSync, readdirSync } from 'node:fs';
 import { PluginOption } from "vite";
 import VitePluginSvgSpritemap from '@spiriit/vite-plugin-svg-spritemap';
 import { getSites } from './utils.js';
 
 const BODY_SIZE = 16;
+
+const spriteDirectory = (site: string): string => `./app/sites/${site}/Resources/Private/Sprite`;
+
+// Only sites with SVGs get a spritemap - otherwise the plugin warns and emits an empty sprite
+function hasSprites(site: string): boolean {
+	const directory = spriteDirectory(site);
+
+	return existsSync(directory) && readdirSync(directory).some(file => file.endsWith('.svg'));
+}
 
 function fixSpritemapPathPlugin(): PluginOption[] {
 	return [{
@@ -26,8 +36,8 @@ function fixSpritemapPathPlugin(): PluginOption[] {
 export { fixSpritemapPathPlugin };
 
 export const spritemaps = [
-	...getSites().flatMap(site =>
-		VitePluginSvgSpritemap(`./app/sites/${site}/Resources/Private/Sprite/*.svg`, {
+	...getSites().filter(hasSprites).flatMap(site =>
+		VitePluginSvgSpritemap(`${spriteDirectory(site)}/*.svg`, {
 			output: `spritemap-${site}.svg`,
 			route: `spritemap-${site}`,
 			injectSvgOnDev: true,
