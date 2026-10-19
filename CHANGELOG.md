@@ -1,3 +1,11 @@
+# 2.0.0
+
+**19th October 2026**
+
+#### Feature
+
+- [BREAKING] Change sprite lookup path (#2)
+
 # 1.1.1
 
 **14th October 2026**
