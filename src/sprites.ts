@@ -38,7 +38,7 @@ export { fixSpritemapPathPlugin };
 export const spritemaps = [
 	...getSites().filter(hasSprites).flatMap(site =>
 		VitePluginSvgSpritemap(`${spriteDirectory(site)}/*.svg`, {
-			output: `spritemap-${site}.svg`,
+			output: `spritemap-${site}.[hash][extname]`,
 			route: `spritemap-${site}`,
 			injectSvgOnDev: true,
 			styles: {
